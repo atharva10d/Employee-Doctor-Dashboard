@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark"> <!-- Theme set by default, managed by JS -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SanjeevAarVya Health Care Portal - Doctor Dashboard">
+    <title>Doctor Dashboard - SanjeevAarVya Health Care</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&family=Raleway:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Main Stylesheet (Ensure path is correct) -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Favicon (Optional) -->
+    <!-- <link rel="icon" href="images/favicon.ico" type="image/x-icon"> -->
+</head>
+<body class="doctor-dashboard"> <!-- Page specific class -->
+
+    <!-- Background Effect Layer -->
+    <div class="background-layer"></div>
+
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header class="page-header glassmorphism"> <!-- Added class for potential header styling -->
+            <div class="header-content container">
+                <a href="index.html" class="portal-link">
+                    <!-- <img src="images/logo.svg" alt="SanjeevAarVya Logo" class="portal-logo"> You can add a logo here -->
+                    <h1 class="portal-title-full neon-glow-blue">SanjeevAarVya Health</h1>
+                </a>
+                <div class="user-actions">
+                    <!-- Welcome message populated by JS -->
+                    <span class="welcome-message">Welcome, <strong id="user-name-header">Dr. Name</strong>!</span>
+                    <!-- Theme toggle button -->
+                    <button id="theme-toggle-btn" class="icon-button" aria-label="Toggle Theme" data-tooltip="Toggle Theme">
+                        <i class="fas fa-sun" aria-hidden="true"></i> <!-- Icon updated by JS -->
+                    </button>
+                    <!-- Logout button -->
+                    <button id="logout-btn" class="btn btn-secondary btn-sm">
+                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content container">
+            <h2 class="dashboard-heading">Doctor's Workspace</h2>
+
+            <!-- Responsive Grid Layout for Doctor Dashboard -->
+            <div class="dashboard-grid-doctor">
+
+                <!-- Doctor Information Card -->
+                <section id="doctor-info-card" class="dashboard-card card card-glass" aria-labelledby="doctor-info-heading">
+                    <header class="card-header">
+                        <i class="fas fa-user-md card-icon neon-glow-secondary" aria-hidden="true"></i>
+                        <h3 id="doctor-info-heading" class="card-title">Your Information</h3>
+                    </header>
+                    <div class="card-content card-padded">
+                        <!-- Info items populated by JS -->
+                        <div class="info-item">
+                            <span class="info-label">Name:</span>
+                            <span id="doctor-name-info" class="info-value">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Specialization:</span>
+                            <span id="doctor-specialization-info" class="info-value">Loading...</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Doctor ID:</span>
+                            <span id="doctor-id-info" class="info-value">Loading...</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Assigned Patients Card -->
+                <section id="assigned-patients-card" class="dashboard-card card card-glass interactive-section" aria-labelledby="assigned-patients-heading">
+                    <header class="card-header flex-wrap">
+                        <!-- Header main content (Icon & Title) -->
+                        <div class="card-header-main">
+                            <i class="fas fa-users card-icon neon-glow-primary" aria-hidden="true"></i>
+                            <h3 id="assigned-patients-heading" class="card-title">Assigned Patients</h3>
+                        </div>
+                        <!-- Header controls (Search & Sort) -->
+                        <div class="card-header-controls">
+                            <div class="search-filter-wrapper">
+                                <label for="patient-search-input" class="sr-only">Search Patients</label>
+                                <input type="search" id="patient-search-input" placeholder="Search by name or ID..." class="form-control form-control-sm">
+                                <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                            </div>
+                            <div class="sort-controls" role="group" aria-label="Sort patients">
+                                <span class="sort-label">Sort:</span>
+                                <!-- Sort buttons - JS manages 'active' class and functionality -->
+                                <button class="btn btn-ghost btn-sm sort-btn active" data-sort="name-asc" data-tooltip="Sort by Name A-Z" aria-label="Sort by Name Ascending"><i class="fas fa-sort-alpha-down" aria-hidden="true"></i></button>
+                                <button class="btn btn-ghost btn-sm sort-btn" data-sort="name-desc" data-tooltip="Sort by Name Z-A" aria-label="Sort by Name Descending"><i class="fas fa-sort-alpha-up" aria-hidden="true"></i></button>
+                                <button class="btn btn-ghost btn-sm sort-btn" data-sort="age-asc" data-tooltip="Sort by Age (Youngest First)" aria-label="Sort by Age Ascending"><i class="fas fa-sort-numeric-down" aria-hidden="true"></i></button> <!-- Added age-asc/desc -->
+                                <button class="btn btn-ghost btn-sm sort-btn" data-sort="age-desc" data-tooltip="Sort by Age (Oldest First)" aria-label="Sort by Age Descending"><i class="fas fa-sort-numeric-up" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </header>
+                    <!-- Contains the scrollable list -->
+                    <div class="card-content"> <!-- Padding handled by CSS -->
+                        <!-- Patient List Area -->
+                        <div id="assigned-patients-list" class="patient-list-container scrollable-list" aria-live="polite">
+                            <!-- Skeleton shown initially while loading -->
+                            <div class="list-placeholder skeleton-loader">
+                                <div class="skeleton patient-list-item-skeleton">
+                                    <div class="skeleton skeleton-text" style="width: 60%; height: 1.2em;"></div>
+                                    <div class="skeleton skeleton-text" style="width: 25%; height: 1em;"></div>
+                                </div>
+                                <div class="skeleton patient-list-item-skeleton">
+                                    <div class="skeleton skeleton-text" style="width: 55%; height: 1.2em;"></div>
+                                    <div class="skeleton skeleton-text" style="width: 30%; height: 1em;"></div>
+                                </div>
+                                <div class="skeleton patient-list-item-skeleton">
+                                    <div class="skeleton skeleton-text" style="width: 70%; height: 1.2em;"></div>
+                                    <div class="skeleton skeleton-text" style="width: 20%; height: 1em;"></div>
+                                </div>
+                            </div>
+                            <!-- No results placeholder - Hidden initially, shown by JS if needed -->
+                            <div class="list-placeholder no-results hidden">
+                                <i class="fas fa-user-slash" style="font-size: 2rem; color: var(--text-muted); margin-bottom: 1rem;" aria-hidden="true"></i>
+                                <p>No patients match your criteria.</p>
+                            </div>
+                            <!-- Actual patient list items are rendered here by JS -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Scheduled Visits Card -->
+                <section id="scheduled-visits-card" class="dashboard-card card card-glass interactive-card card-hover-lift" aria-labelledby="schedule-heading">
+                    <header class="card-header">
+                        <i class="fas fa-calendar-alt card-icon neon-glow-accent" aria-hidden="true"></i>
+                        <h3 id="schedule-heading" class="card-title">Your Schedule</h3>
+                    </header>
+                    <!-- Contains the scrollable list -->
+                    <div class="card-content"> <!-- Padding handled by CSS -->
+                        <!-- Schedule List Area - Scrollable -->
+                        <ul id="scheduled-visits-list" class="data-list scrollable-list" aria-live="polite">
+                            <!-- Skeleton shown initially -->
+                            <li class="list-placeholder skeleton-loader">
+                                <div class="skeleton skeleton-text" style="height: 1.2em; width: 90%; margin-bottom: 0.5rem;"></div>
+                                <div class="skeleton skeleton-text" style="height: 1em; width: 70%; margin-bottom: 0.5rem;"></div>
+                                <div class="skeleton skeleton-text" style="height: 1em; width: 80%;"></div>
+                            </li>
+                            <li class="list-placeholder skeleton-loader">
+                                <div class="skeleton skeleton-text" style="height: 1.2em; width: 85%; margin-bottom: 0.5rem;"></div>
+                                <div class="skeleton skeleton-text" style="height: 1em; width: 65%; margin-bottom: 0.5rem;"></div>
+                                <div class="skeleton skeleton-text" style="height: 1em; width: 75%;"></div>
+                            </li>
+                            <!-- No results placeholder - Hidden initially, shown by JS if needed -->
+                            <li class="list-placeholder no-results hidden">
+                                <i class="fas fa-calendar-times" style="font-size: 2rem; color: var(--text-muted); margin-bottom: 1rem;" aria-hidden="true"></i>
+                                <p>No upcoming appointments found.</p>
+                            </li>
+                            <!-- Actual schedule items are rendered here by JS -->
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Patient Details Section -->
+                <!-- Visibility controlled by JS and media queries/CSS -->
+                <section id="patient-details-section" class="dashboard-card card card-glass interactive-section" role="region" aria-labelledby="selected-patient-heading" aria-hidden="true">
+                    <header class="card-header">
+                        <i class="fas fa-file-medical-alt card-icon neon-glow-primary" aria-hidden="true"></i>
+                        <h3 id="selected-patient-heading" class="card-title">Patient Details</h3>
+                        <!-- Close button for smaller screens or explicit action -->
+                        <button id="close-patient-details" class="close-button" aria-label="Close patient details" data-tooltip="Close Details">×</button>
+                    </header>
+                    <div class="card-content card-padded"> <!-- Scrollable content area -->
+                        <!-- Placeholder shown when no patient is selected -->
+                        <div id="patient-details-placeholder">
+                            <i class="fas fa-hand-pointer" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem; display: block; text-align: center;" aria-hidden="true"></i>
+                            <p>Select a patient from the list to view their details.</p>
+                        </div>
+
+                        <!-- Content shown when a patient IS selected - Initially hidden -->
+                        <div id="patient-details-content" class="hidden">
+                            <!-- Patient Summary Header -->
+                            <div class="patient-summary">
+                                <h4 id="selected-patient-name" class="neon-glow-secondary">Patient Name</h4>
+                                <div class="patient-meta-info">
+                                    <span id="selected-patient-age">Age: --</span> |
+                                    <span id="selected-patient-gender">Gender: --</span> |
+                                    <span id="selected-patient-id">ID: --</span>
+                                </div>
+                            </div>
+
+                            <!-- Tab Navigation for Patient Details -->
+                            <div class="tab-navigation" role="tablist" aria-label="Patient Information Tabs">
+                                <!-- JS manages 'active' class, aria-selected, and tabindex -->
+                                <button class="tab-link active" role="tab" aria-selected="true" aria-controls="history-content" data-tab="history" id="tab-history" tabindex="0"><i class="fas fa-notes-medical" data-tooltip="Medical History" aria-hidden="true"></i> History</button>
+                                <button class="tab-link" role="tab" aria-selected="false" aria-controls="treatments-content" data-tab="treatments" id="tab-treatments" tabindex="-1"><i class="fas fa-stethoscope" data-tooltip="Visits & Treatments" aria-hidden="true"></i> Visits</button>
+                                <button class="tab-link" role="tab" aria-selected="false" aria-controls="exercises-content" data-tab="exercises" id="tab-exercises" tabindex="-1"><i class="fas fa-dumbbell" data-tooltip="Exercises & Therapies" aria-hidden="true"></i> Exercises</button>
+                                <button class="tab-link" role="tab" aria-selected="false" aria-controls="recommendations-content" data-tab="recommendations" id="tab-recommendations" tabindex="-1"><i class="fas fa-comment-medical" data-tooltip="Doctor's Notes" aria-hidden="true"></i> Notes</button>
+                                <!-- **NEW Tab: Log Visit** -->
+                                <button class="tab-link" role="tab" aria-selected="false" aria-controls="log-visit-content" data-tab="log-visit" id="tab-log-visit" tabindex="-1"><i class="fas fa-edit" data-tooltip="Log New Visit" aria-hidden="true"></i> Log Visit</button>
+                            </div>
+
+                            <!-- Tab Content Panels Container -->
+                            <div id="tab-content-container">
+                                <!-- History Tab Panel -->
+                                <div id="history-content" class="tab-pane active" role="tabpanel" aria-labelledby="tab-history"> <!-- Default active pane -->
+                                    <h5>Medical History</h5>
+                                    <ul id="patient-history-list" class="data-list scrollable-list" aria-live="polite"> <!-- Added scrollable-list -->
+                                        <li class="list-placeholder skeleton-loader">
+                                            <div class="skeleton skeleton-text"></div>
+                                            <div class="skeleton skeleton-text" style="width: 80%;"></div>
+                                        </li>
+                                        <li class="list-placeholder no-results hidden">
+                                            <i class="fas fa-file-medical" style="font-size: 1.8rem; color: var(--text-muted); margin-bottom: 0.5rem;" aria-hidden="true"></i>
+                                            <p>No medical history recorded.</p>
+                                        </li>
+                                        <!-- History items rendered by JS -->
+                                    </ul>
+                                </div>
+                                <!-- Treatments/Visits Tab Panel -->
+                                <div id="treatments-content" class="tab-pane" role="tabpanel" aria-labelledby="tab-treatments" hidden>
+                                    <h5>Past Treatments & Visits</h5>
+                                    <ul id="patient-treatments-list" class="data-list scrollable-list" aria-live="polite"> <!-- Added scrollable-list -->
+                                        <li class="list-placeholder skeleton-loader">
+                                            <div class="skeleton skeleton-text" style="width: 90%;"></div>
+                                            <div class="skeleton skeleton-text" style="width: 70%;"></div>
+                                            <div class="skeleton skeleton-text" style="width: 80%;"></div>
+                                        </li>
+                                        <li class="list-placeholder no-results hidden">
+                                            <i class="fas fa-history" style="font-size: 1.8rem; color: var(--text-muted); margin-bottom: 0.5rem;" aria-hidden="true"></i>
+                                            <p>No past visits or treatments found.</p>
+                                        </li>
+                                        <!-- Visit items rendered by JS -->
+                                    </ul>
+                                </div>
+                                <!-- Exercises Tab Panel -->
+                                <div id="exercises-content" class="tab-pane" role="tabpanel" aria-labelledby="tab-exercises" hidden>
+                                    <h5>Prescribed Exercises & Therapies</h5>
+                                    <ul id="patient-exercises-list" class="data-list scrollable-list" aria-live="polite"> <!-- Added scrollable-list -->
+                                        <li class="list-placeholder skeleton-loader">
+                                            <div class="skeleton skeleton-text" style="width: 85%;"></div>
+                                            <div class="skeleton skeleton-text" style="width: 60%;"></div>
+                                            <div class="skeleton skeleton-text" style="width: 75%;"></div>
+                                        </li>
+                                        <li class="list-placeholder no-results hidden">
+                                            <i class="fas fa-prescription-bottle-alt" style="font-size: 1.8rem; color: var(--text-muted); margin-bottom: 0.5rem;" aria-hidden="true"></i>
+                                            <p>No exercises or therapies prescribed.</p>
+                                        </li>
+                                        <!-- Exercise items rendered by JS -->
+                                    </ul>
+                                </div>
+                                <!-- Recommendations/Notes Tab Panel -->
+                                <div id="recommendations-content" class="tab-pane" role="tabpanel" aria-labelledby="tab-recommendations" hidden>
+                                    <h5>Doctor's Notes & Recommendations</h5>
+                                    <ul id="patient-recommendations-list" class="data-list scrollable-list" aria-live="polite"> <!-- Added scrollable-list -->
+                                        <li class="list-placeholder skeleton-loader">
+                                            <div class="skeleton skeleton-text"></div>
+                                            <div class="skeleton skeleton-text" style="width: 90%;"></div>
+                                        </li>
+                                        <li class="list-placeholder no-results hidden">
+                                            <i class="far fa-sticky-note" style="font-size: 1.8rem; color: var(--text-muted); margin-bottom: 0.5rem;" aria-hidden="true"></i>
+                                            <p>No notes added yet.</p>
+                                        </li>
+                                        <!-- Note items rendered by JS -->
+                                    </ul>
+                                    <!-- Add Recommendation Form -->
+                                    <form id="recommendation-form" class="add-recommendation-form">
+                                        <div class="form-group">
+                                            <textarea id="recommendation-textarea" class="form-control" rows="3" placeholder=" " required aria-label="Add new note or recommendation"></textarea>
+                                            <label for="recommendation-textarea">Add New Note/Recommendation</label>
+                                        </div>
+                                        <button type="submit" id="add-recommendation-btn" class="btn btn-accent btn-sm">
+                                            <span class="button-text">Add Note</span>
+                                            <span class="loading-spinner hidden" aria-hidden="true"></span>
+                                        </button>
+                                        <p id="recommendation-feedback" class="feedback-message hidden" aria-live="polite"></p>
+                                    </form>
+                                </div>
+                                <!-- **NEW: Log Visit Tab Panel** -->
+                                <div id="log-visit-content" class="tab-pane" role="tabpanel" aria-labelledby="tab-log-visit" hidden>
+                                    <h5>Log New Patient Visit</h5>
+                                    <form id="log-visit-form" class="log-visit-form" style="margin-top: 1rem;">
+                                        <div class="form-group">
+                                            <input type="date" id="log-visit-date" class="form-control" required aria-label="Visit Date">
+                                            <label for="log-visit-date" style="top: -0.6rem; font-size: 0.8rem; color: var(--text-muted);">Visit Date</label> <!-- Label always floated for date input -->
+                                            <script>document.getElementById('log-visit-date').valueAsDate = new Date();</script> <!-- Default to today -->
+                                            <span class="error-text" aria-live="polite"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" id="log-visit-reason" class="form-control" placeholder=" " required aria-label="Reason for Visit or Diagnosis">
+                                            <label for="log-visit-reason">Reason/Diagnosis</label>
+                                             <span class="error-text" aria-live="polite"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea id="log-visit-notes" class="form-control" rows="4" placeholder=" " required aria-label="Visit Notes"></textarea>
+                                            <label for="log-visit-notes">Visit Notes</label>
+                                            <span class="error-text" aria-live="polite"></span>
+                                        </div>
+                                        <button type="submit" id="log-visit-btn" class="btn btn-primary btn-sm">
+                                             <span class="button-text">Log Visit</span>
+                                             <span class="loading-spinner hidden" aria-hidden="true"></span>
+                                        </button>
+                                        <p id="log-visit-feedback" class="feedback-message hidden" aria-live="polite"></p>
+                                    </form>
+                                </div>
+                            </div> <!-- End Tab Content Container -->
+                        </div> <!-- End Patient Details Content (when patient selected) -->
+                    </div> <!-- End Card Content (Patient Details) -->
+                </section> <!-- End Patient Details Section -->
+
+            </div> <!-- End Dashboard Grid -->
+        </main>
+
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p class="footer-text glowing-text">Designed by Atharva Zope</p>
+        </footer>
+
+    </div> <!-- End Page Wrapper -->
+
+    <!-- Modal Structure -->
+    <div id="confirmation-modal" class="modal-backdrop hidden" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+        <div class="modal card card-glass" role="document">
+            <header class="modal-header">
+                <h3 id="modal-title" class="card-title modal-title">Confirm Action</h3>
+                <button id="modal-close-btn" class="close-button" aria-label="Close dialog">×</button>
+            </header>
+            <div class="modal-body">
+                <p id="modal-message">Are you sure you want to proceed?</p>
+            </div>
+            <footer class="modal-footer">
+                <button id="modal-cancel-btn" class="btn btn-secondary btn-sm">Cancel</button>
+                <button id="modal-confirm-btn" class="btn btn-primary btn-sm">Confirm</button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Link to JavaScript (Defer loading, Ensure path is correct) -->
+    <script src="js/script.js" defer></script>
+</body>
+</html>

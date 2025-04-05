@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!-- Setting default theme, JS will handle persistence -->
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SanjeevAarVya Health Care Portal - Secure Login">
+    <title>Login - SanjeevAarVya Health Care Portal</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&family=Raleway:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Main Stylesheet (Ensure path is correct) -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Favicon (Optional) -->
+    <!-- <link rel="icon" href="images/favicon.ico" type="image/x-icon"> -->
+</head>
+<body class="login-page">
+
+    <!-- Background Effect Layer -->
+    <div class="background-layer"></div>
+
+    <div class="page-wrapper">
+        <main class="main-content">
+            <div class="login-container">
+                <!-- Login Form Card with Animation -->
+                <div class="login-form-wrapper card card-glass animated slideUpFadeIn">
+                    <header class="login-header">
+                        <h1 class="portal-title neon-glow-primary">SanjeevAarVya</h1>
+                        <h2 class="portal-subtitle">Health Portal Access</h2>
+                    </header>
+
+                    <!-- Role Selection Section -->
+                    <section class="role-selection" aria-labelledby="role-select-heading">
+                        <h3 id="role-select-heading" class="sr-only">Select Login Type</h3>
+                        <div class="role-selector">
+                            <button id="patient-role-btn" class="role-btn active" data-role="patient" aria-pressed="true" data-tooltip="Login as a patient">
+                                <i class="fas fa-user icon-placeholder" aria-hidden="true"></i> Patient
+                            </button>
+                            <button id="doctor-role-btn" class="role-btn" data-role="doctor" aria-pressed="false" data-tooltip="Login as a healthcare provider">
+                                <i class="fas fa-user-md icon-placeholder" aria-hidden="true"></i> Doctor
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Login Form -->
+                    <form id="login-form" class="login-form" novalidate aria-describedby="login-error-message">
+                        <!-- Screen Reader Description (Optional but good practice) -->
+                        <p id="form-description" class="sr-only">Enter your login credentials below.</p>
+
+                        <!-- Username Field -->
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <span class="input-icon" aria-hidden="true"><i class="fas fa-user"></i></span>
+                                <!-- Use placeholder=" " for floating label effect -->
+                                <input type="text" id="username" name="username" class="form-control" placeholder=" " required aria-required="true" autocomplete="username">
+                                <label for="username">Username</label>
+                            </div>
+                            <span class="error-text" aria-live="polite"></span> <!-- For field-specific errors -->
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <span class="input-icon" aria-hidden="true"><i class="fas fa-lock"></i></span>
+                                <input type="password" id="password" name="password" class="form-control" placeholder=" " required aria-required="true" autocomplete="current-password">
+                                <label for="password">Password</label>
+                                <!-- Password visibility toggle button -->
+                                <button type="button" class="password-toggle icon-button" aria-label="Show password" data-tooltip="Toggle password visibility">
+                                    <i class="fas fa-eye" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <span class="error-text" aria-live="polite"></span> <!-- For field-specific errors -->
+                        </div>
+
+                        <!-- Doctor ID Field (Initially hidden by CSS/JS) -->
+                        <div class="form-group doctor-only hidden" id="doctor-id-group">
+                            <div class="input-wrapper">
+                                <span class="input-icon" aria-hidden="true"><i class="fas fa-id-badge"></i></span>
+                                <input type="text" id="doctor-id" name="doctor-id" class="form-control" placeholder=" " aria-required="false"> <!-- JS will set required -->
+                                <label for="doctor-id">Doctor ID</label>
+                            </div>
+                            <span class="error-text" aria-live="polite"></span> <!-- For field-specific errors -->
+                        </div>
+
+                        <!-- Form Actions (Error Message & Submit Button) -->
+                        <div class="form-actions">
+                            <!-- General form error message area -->
+                            <p id="login-error-message" class="error-message global-error" aria-live="assertive"></p>
+                            <button type="submit" class="btn btn-primary btn-block submit-btn neon-glow-button">
+                                <span class="button-text">Login Securely</span>
+                                <span class="loading-spinner hidden" aria-hidden="true"></span> <!-- Spinner shown during loading -->
+                            </button>
+                        </div>
+
+                        <!-- Extra Options (Forgot Password) -->
+                        <div class="extra-options">
+                            <!-- Link for forgot password functionality (JS will handle click) -->
+                            <a href="#" class="forgot-password-link">Forgot Credentials?</a>
+                        </div>
+                    </form>
+                </div> <!-- End Login Form Wrapper -->
+
+                <!-- Theme Toggle Button (Outside the form card) -->
+                <div class="theme-toggle-login">
+                    <button id="theme-toggle-btn" class="icon-button" aria-label="Toggle Theme" data-tooltip="Switch between light and dark mode">
+                        <i class="fas fa-sun" aria-hidden="true"></i> <!-- Icon will be updated by JS -->
+                    </button>
+                </div>
+
+            </div> <!-- End Login Container -->
+        </main>
+
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p class="footer-text glowing-text">Designed by Atharva Zope</p>
+        </footer>
+
+    </div> <!-- End Page Wrapper -->
+
+    <!-- Modal Structure (Used for confirmation dialogs, e.g., logout) -->
+    <div id="confirmation-modal" class="modal-backdrop hidden" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+        <div class="modal card card-glass" role="document">
+            <header class="modal-header">
+                <h3 id="modal-title" class="card-title modal-title">Confirm Action</h3> <!-- Added .modal-title class for consistency -->
+                <button id="modal-close-btn" class="close-button" aria-label="Close dialog">×</button>
+            </header>
+            <div class="modal-body">
+                <p id="modal-message">Are you sure you want to proceed?</p>
+            </div>
+            <footer class="modal-footer">
+                <button id="modal-cancel-btn" class="btn btn-secondary btn-sm">Cancel</button>
+                <button id="modal-confirm-btn" class="btn btn-primary btn-sm">Confirm</button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Link to JavaScript (Defer loading, Ensure path is correct) -->
+    <script src="js/script.js" defer></script>
+</body>
+</html>
